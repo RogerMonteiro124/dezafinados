@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/diretoria",
+      "destination": "/diretoria.html"
+    }
+  ]
+}
