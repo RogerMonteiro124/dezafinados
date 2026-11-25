@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diretoria JA | Inscritos - Dez Afinados</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Montserrat', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #02081f;
+      background-image: radial-gradient(circle at 50% 0%, #0a2472 0%, #030b26 75%);
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(7, 23, 74, 0.88);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255, 214, 10, 0.25);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+    }
+  </style>
+</head>
+<body class="text-white antialiased">
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Cabeçalho -->
+    <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div>
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-yellow-300 bg-yellow-400/10 border border-yellow-400/30 rounded-full px-3 py-1 mb-2">
+          Painel Direção JA
+        </span>
+        <h1 class="font-display font-black text-2xl sm:text-3xl text-white">
+          Inscritos — <span class="text-lime-400">Dez Afinados</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-blue-200/80 mt-0.5">Culto Jovem Especial • 28 NOV às 16:30</p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button
+          id="refreshBtn"
+          type="button"
+          class="px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs sm:text-sm font-semibold transition cursor-pointer"
+        >
+          Atualizar Lista
+        </button>
+        <button
+          id="copyWhatsappBtn"
+          type="button"
+          class="px-3.5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs sm:text-sm font-bold transition cursor-pointer"
+        >
+          Copiar p/ WhatsApp
+        </button>
+        <button
+          id="exportCsvBtn"
+          type="button"
+          class="px-3.5 py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-slate-950 text-xs sm:text-sm font-bold transition cursor-pointer"
+        >
+          Baixar CSV
+        </button>
+      </div>
+    </header>
+
+    <!-- Resumo e Busca -->
+    <section class="glass-card rounded-3xl p-5 sm:p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+        <div class="flex items-center gap-3">
+          <div class="px-4 py-2 rounded-2xl bg-[#040e30] border border-yellow-400/30">
+            <span class="text-xs text-blue-300 block">Total de Inscritos</span>
+            <span id="totalCount" class="font-display font-black text-2xl text-yellow-300">0</span>
+          </div>
+          <a
+            href="/"
+            class="px-4 py-2.5 rounded-2xl bg-blue-500/15 hover:bg-blue-500/25 border border-blue-400/30 text-xs sm:text-sm font-semibold text-blue-200 transition"
+          >
+            Abrir Formulário →
+          </a>
+        </div>
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar por nome ou música..."
+          class="w-full sm:w-72 rounded-xl bg-[#040e30]/90 border border-blue-400/30 px-4 py-2.5 text-sm text-white placeholder-blue-300/40 focus:outline-none focus:border-yellow-400"
+        />
+      </div>
+
+      <!-- Status -->
+      <div id="statusBox" class="py-10 text-center text-sm text-blue-200">
+        Carregando inscritos do banco...
+      </div>
+
+      <!-- Tabela -->
+      <div id="tableWrapper" class="hidden overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-white/15 text-xs uppercase tracking-wider text-yellow-300">
+              <th class="py-3 px-3">#</th>
+              <th class="py-3 px-3">Nome</th>
+              <th class="py-3 px-3">Música</th>
+              <th class="py-3 px-3">Idade</th>
+              <th class="py-3 px-3 text-right">Ação</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" class="divide-y divide-white/10 text-sm"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const TURSO_URL = "https://roger-roger07.aws-sa-east-1.turso.io/v2/pipeline";
+    const TURSO_TOKEN = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJWNDdBOS1rVUVmR0d0cmJPLXZrMjFBIiwib3JnX2lkIjoxMDAwMzE1MDQ4fQ.gXY8hpaUC-CXSrlxse4Bte8i_skiefD11h36_1XqxYqJ-3_N8rbpbyePY1XjfjQLa0011NvtVC07RSWsv801CA";
+
+    let allRows = [];
+
+    async function tursoPipeline(requests) {
+      const response = await fetch(TURSO_URL, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${TURSO_TOKEN}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ requests })
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Erro Turso (${response.status}): ${errText}`);
+      }
+
+      const data = await response.json();
+      for (const res of data.results || []) {
+        if (res.type === "error") {
+          throw new Error(res.error?.message || "Erro SQL.");
+        }
+      }
+      return data;
+    }
+
+    async function loadInscritos() {
+      const statusBox = document.getElementById("statusBox");
+      const tableWrapper = document.getElementById("tableWrapper");
+
+      statusBox.textContent = "Carregando inscritos...";
+      statusBox.classList.remove("hidden");
+      tableWrapper.classList.add("hidden");
+
+      try {
+        const data = await tursoPipeline([
+          {
+            type: "execute",
+            stmt: {
+              sql: `CREATE TABLE IF NOT EXISTS inscricoes_dez_afinados (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL,
+                musica TEXT NOT NULL,
+                idade INTEGER NOT NULL,
+                criado_em TEXT DEFAULT (datetime('now', '-4 hours'))
+              )`
+            }
+          },
+          {
+            type: "execute",
+            stmt: {
+              sql: "SELECT id, nome, musica, idade, criado_em FROM inscricoes_dez_afinados ORDER BY id ASC"
+            }
+          },
+          { type: "close" }
+        ]);
+
+        const rows = data.results[1]?.response?.result?.rows || [];
+        allRows = rows.map(r => ({
+          id: Number(r[0]?.value),
+          nome: r[1]?.value || "",
+          musica: r[2]?.value || "",
+          idade: Number(r[3]?.value),
+          criado_em: r[4]?.value || ""
+        }));
+
+        renderTable();
+      } catch (err) {
+        statusBox.textContent = "Erro ao carregar inscritos: " + err.message;
+      }
+    }
+
+    function renderTable() {
+      const term = document.getElementById("searchInput").value.trim().toLowerCase();
+      const filtered = allRows.filter(item =>
+        item.nome.toLowerCase().includes(term) ||
+        item.musica.toLowerCase().includes(term)
+      );
+
+      document.getElementById("totalCount").textContent = allRows.length;
+      const statusBox = document.getElementById("statusBox");
+      const tableWrapper = document.getElementById("tableWrapper");
+      const tbody = document.getElementById("tableBody");
+
+      if (filtered.length === 0) {
+        tableWrapper.classList.add("hidden");
+        statusBox.textContent = allRows.length === 0
+          ? "Nenhuma inscrição registrada ainda."
+          : "Nenhum inscrito encontrado para essa busca.";
+        statusBox.classList.remove("hidden");
+        return;
+      }
+
+      statusBox.classList.add("hidden");
+      tableWrapper.classList.remove("hidden");
+
+      tbody.innerHTML = filtered.map((item, idx) => `
+        <tr class="hover:bg-white/5 transition">
+          <td class="py-3.5 px-3 font-bold text-yellow-300">${idx + 1}</td>
+          <td class="py-3.5 px-3 font-semibold text-white">${escapeHtml(item.nome)}</td>
+          <td class="py-3.5 px-3 text-lime-300 font-medium">${escapeHtml(item.musica)}</td>
+          <td class="py-3.5 px-3 text-blue-200">${item.idade} anos</td>
+          <td class="py-3.5 px-3 text-right">
+            <button
+              onclick="deleteInscrito(${item.id}, '${escapeHtml(item.nome).replace(/'/g, "\\'")}')"
+              class="px-2.5 py-1 rounded-lg bg-red-500/15 hover:bg-red-500/30 border border-red-400/30 text-red-300 text-xs font-semibold transition cursor-pointer"
+            >
+              Excluir
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    async function deleteInscrito(id, nome) {
+      if (!confirm(`Remover a inscrição de "${nome}"?`)) return;
+      try {
+        await tursoPipeline([
+          {
+            type: "execute",
+            stmt: {
+              sql: "DELETE FROM inscricoes_dez_afinados WHERE id = ?",
+              args: [{ type: "integer", value: String(id) }]
+            }
+          },
+          { type: "close" }
+        ]);
+        await loadInscritos();
+      } catch (err) {
+        alert("Erro ao excluir: " + err.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    document.getElementById("searchInput").addEventListener("input", renderTable);
+    document.getElementById("refreshBtn").addEventListener("click", loadInscritos);
+
+    document.getElementById("copyWhatsappBtn").addEventListener("click", async () => {
+      if (allRows.length === 0) return alert("Não há inscritos para copiar.");
+      const lines = allRows.map((r, i) => `${i + 1}. *${r.nome}* (${r.idade} anos) — 🎤 _${r.musica}_`);
+      const text = `🎶 *LISTA DE INSCRITOS — CULTO JOVEM DOS DEZ AFINADOS* 🎶\n📅 28 NOV às 16:30\n\n${lines.join("\n")}`;
+      await navigator.clipboard.writeText(text);
+      alert("Lista copiada! É só colar no WhatsApp.");
+    });
+
+    document.getElementById("exportCsvBtn").addEventListener("click", () => {
+      if (allRows.length === 0) return alert("Não há inscritos para exportar.");
+      const header = "Ordem;Nome;Musica;Idade\n";
+      const rows = allRows.map((r, i) => `${i + 1};"${r.nome.replace(/"/g, '""')}";"${r.musica.replace(/"/g, '""')}";${r.idade}`).join("\n");
+      const blob = new Blob(["\uFEFF" + header + rows], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "inscritos-dez-afinados.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    loadInscritos();
+  </script>
+</body>
+</html>
