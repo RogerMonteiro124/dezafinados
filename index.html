@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscrição | Culto Jovem Especial dos Dez Afinados</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Montserrat:ital,wght@0,600;0,800;0,900;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Montserrat', 'sans-serif'],
+            fun: ['Fredoka', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #02081f;
+      background-image:
+        radial-gradient(circle at 12% 10%, rgba(255, 222, 0, 0.22) 0%, transparent 32%),
+        radial-gradient(circle at 88% 12%, rgba(239, 35, 60, 0.22) 0%, transparent 34%),
+        radial-gradient(circle at 15% 88%, rgba(56, 176, 0, 0.20) 0%, transparent 34%),
+        radial-gradient(circle at 85% 90%, rgba(255, 214, 10, 0.20) 0%, transparent 34%),
+        radial-gradient(circle at 50% 45%, #0a2472 0%, #030b26 78%);
+      min-height: 100vh;
+    }
+
+    .poster-text-yellow {
+      color: #ffd60a;
+      text-shadow:
+        0 3px 0 #05103a,
+        -2px -2px 0 #05103a,
+        2px -2px 0 #05103a,
+        -2px 2px 0 #05103a,
+        2px 2px 0 #05103a,
+        0 8px 20px rgba(0, 0, 0, 0.65);
+    }
+
+    .poster-text-green {
+      color: #4ade80;
+      background: linear-gradient(180deg, #80ed99 0%, #38b000 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 3px 0 #04102e) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+    }
+
+    @keyframes floatNote {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-9px) rotate(5deg); }
+    }
+
+    .note-float-1 { animation: floatNote 4.2s ease-in-out infinite; }
+    .note-float-2 { animation: floatNote 5s ease-in-out 1s infinite; }
+
+    .glass-card {
+      background: rgba(7, 23, 74, 0.86);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255, 214, 10, 0.28);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body class="text-white antialiased selection:bg-yellow-400 selection:text-slate-950 relative overflow-x-hidden">
+
+  <!-- Notas Musicais Decorativas -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden z-0 opacity-20">
+    <svg class="note-float-1 absolute top-10 left-6 w-14 h-14 text-white" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+    <svg class="note-float-2 absolute bottom-12 right-8 w-16 h-16 text-yellow-300" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+  </div>
+
+  <main class="relative z-10 max-w-xl mx-auto px-4 py-8 sm:py-10">
+    <!-- Cabeçalho do Cartaz -->
+    <header class="text-center mb-7">
+      <div class="inline-flex items-center justify-center mb-3">
+        <div class="relative flex items-center justify-center w-20 h-14 rounded-full bg-gradient-to-b from-yellow-300 via-yellow-400 to-amber-500 p-0.5 shadow-[0_0_28px_rgba(255,214,10,0.45)]">
+          <div class="w-full h-full rounded-full bg-[#071952] flex items-center justify-center border-2 border-yellow-300 px-3">
+            <span class="font-display font-black text-xl tracking-tight text-yellow-300">JA</span>
+            <span class="mx-1.5 h-6 w-0.5 bg-yellow-400/70"></span>
+            <svg class="w-6 h-6 text-yellow-300" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="font-display font-black uppercase tracking-tight leading-none">
+        <span class="block text-white text-2xl sm:text-4xl drop-shadow-[0_3px_0_#040e30]">Culto Jovem</span>
+        <span class="block poster-text-yellow text-4xl sm:text-5xl mt-0.5">Especial</span>
+        <span class="block font-fun italic text-white text-lg sm:text-xl my-0.5">dos</span>
+        <span class="block poster-text-green text-4xl sm:text-5xl tracking-tight">Dez Afinados</span>
+      </h1>
+
+      <!-- Barra Data e Hora -->
+      <div class="mt-5 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-5 bg-[#05123d]/90 border border-yellow-400/35 rounded-2xl px-5 py-2.5 shadow-lg">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+          <span class="text-xs uppercase tracking-wider text-blue-200 font-semibold">Data:</span>
+          <span class="font-display font-black text-yellow-300 text-base sm:text-lg">28 NOV</span>
+        </div>
+        <span class="hidden sm:inline h-5 w-px bg-white/20"></span>
+        <div class="flex items-center gap-2">
+          <span class="text-xs uppercase tracking-wider text-blue-200 font-semibold">Hora:</span>
+          <span class="font-display font-black text-yellow-300 text-base sm:text-lg">16:30</span>
+        </div>
+      </div>
+
+      <p class="mt-3 text-xs sm:text-sm text-blue-100/90 max-w-md mx-auto">
+        Os irmãos que desejarem participar devem preencher sua inscrição abaixo para a <strong class="text-yellow-300">Direção JA</strong>.
+      </p>
+    </header>
+
+    <!-- Card Principal -->
+    <section class="glass-card rounded-3xl p-6 sm:p-8">
+      <!-- Formulário -->
+      <form id="registrationForm" class="space-y-5" novalidate>
+        <div>
+          <label for="nome" class="block text-sm font-bold text-yellow-300 mb-1.5">
+            Nome Completo <span class="text-red-400">*</span>
+          </label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            required
+            placeholder="Ex.: João Pedro Silva"
+            class="w-full rounded-xl bg-[#040e30]/90 border border-blue-400/30 px-4 py-3.5 text-white placeholder-blue-300/40 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30 transition"
+          />
+          <p id="err-nome" class="hidden mt-1 text-xs text-red-400 font-medium">Por favor, informe seu nome.</p>
+        </div>
+
+        <div>
+          <label for="musica" class="block text-sm font-bold text-yellow-300 mb-1.5">
+            Música que vai cantar <span class="text-red-400">*</span>
+          </label>
+          <input
+            type="text"
+            id="musica"
+            name="musica"
+            required
+            placeholder="Ex.: Ousado Amor / Hino 123 HASD"
+            class="w-full rounded-xl bg-[#040e30]/90 border border-blue-400/30 px-4 py-3.5 text-white placeholder-blue-300/40 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30 transition"
+          />
+          <p id="err-musica" class="hidden mt-1 text-xs text-red-400 font-medium">Por favor, informe o nome da música.</p>
+        </div>
+
+        <div>
+          <label for="idade" class="block text-sm font-bold text-yellow-300 mb-1.5">
+            Idade <span class="text-red-400">*</span>
+          </label>
+          <input
+            type="number"
+            id="idade"
+            name="idade"
+            min="4"
+            max="110"
+            required
+            placeholder="Ex.: 21"
+            class="w-full rounded-xl bg-[#040e30]/90 border border-blue-400/30 px-4 py-3.5 text-white placeholder-blue-300/40 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/30 transition"
+          />
+          <p id="err-idade" class="hidden mt-1 text-xs text-red-400 font-medium">Informe uma idade válida (entre 4 e 110 anos).</p>
+        </div>
+
+        <div id="submitError" class="hidden rounded-xl bg-red-500/15 border border-red-400/40 px-4 py-3 text-xs text-red-200"></div>
+
+        <button
+          type="submit"
+          id="submitBtn"
+          class="w-full py-4 px-6 rounded-2xl font-display font-black uppercase tracking-wide text-slate-950 text-base sm:text-lg bg-gradient-to-r from-yellow-300 via-yellow-400 to-lime-400 hover:brightness-105 active:scale-[0.99] shadow-[0_10px_25px_rgba(255,214,10,0.35)] transition cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <span id="submitBtnText">Confirmar Inscrição</span>
+        </button>
+      </form>
+
+      <!-- Comprovante após envio -->
+      <div id="receiptBox" class="hidden text-center space-y-5">
+        <div class="mx-auto w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-300">
+          <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+
+        <div>
+          <h2 class="font-display font-black text-2xl text-yellow-300">Inscrição Confirmada!</h2>
+          <p class="text-sm text-blue-100/85 mt-1">Seus dados já foram enviados para a Direção JA.</p>
+        </div>
+
+        <div class="rounded-2xl bg-[#040e30]/90 border border-yellow-400/30 p-5 text-left space-y-2.5 text-sm">
+          <div class="flex justify-between gap-2 border-b border-white/10 pb-2">
+            <span class="text-blue-300">Nome:</span>
+            <span id="rec-nome" class="font-bold text-white text-right"></span>
+          </div>
+          <div class="flex justify-between gap-2 border-b border-white/10 pb-2">
+            <span class="text-blue-300">Música:</span>
+            <span id="rec-musica" class="font-bold text-lime-300 text-right"></span>
+          </div>
+          <div class="flex justify-between gap-2">
+            <span class="text-blue-300">Idade:</span>
+            <span id="rec-idade" class="font-bold text-yellow-300 text-right"></span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 pt-1">
+          <a
+            id="whatsappShareBtn"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition flex items-center justify-center gap-2"
+          >
+            Enviar Comprovante no WhatsApp
+          </a>
+          <button
+            type="button"
+            id="newRegBtn"
+            class="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold text-sm transition cursor-pointer"
+          >
+            Fazer Outra Inscrição
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-6 text-center text-xs text-blue-300/60">
+      Culto Jovem • Ministério Jovem Adventista (JA)
+    </footer>
+  </main>
+
+  <script>
+    const TURSO_URL = "https://roger-roger07.aws-sa-east-1.turso.io/v2/pipeline";
+    const TURSO_TOKEN = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJWNDdBOS1rVUVmR0d0cmJPLXZrMjFBIiwib3JnX2lkIjoxMDAwMzE1MDQ4fQ.gXY8hpaUC-CXSrlxse4Bte8i_skiefD11h36_1XqxYqJ-3_N8rbpbyePY1XjfjQLa0011NvtVC07RSWsv801CA";
+
+    async function tursoPipeline(requests) {
+      const response = await fetch(TURSO_URL, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${TURSO_TOKEN}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ requests })
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Erro Turso (${response.status}): ${errText}`);
+      }
+
+      const data = await response.json();
+      for (const res of data.results || []) {
+        if (res.type === "error") {
+          throw new Error(res.error?.message || "Erro ao executar SQL no Turso.");
+        }
+      }
+      return data;
+    }
+
+    const form = document.getElementById("registrationForm");
+    const receiptBox = document.getElementById("receiptBox");
+    const submitBtn = document.getElementById("submitBtn");
+    const submitBtnText = document.getElementById("submitBtnText");
+    const submitError = document.getElementById("submitError");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      submitError.classList.add("hidden");
+
+      const nome = document.getElementById("nome").value.trim();
+      const musica = document.getElementById("musica").value.trim();
+      const idade = parseInt(document.getElementById("idade").value, 10);
+
+      let hasError = false;
+      document.getElementById("err-nome").classList.toggle("hidden", nome.length >= 2);
+      if (nome.length < 2) hasError = true;
+
+      document.getElementById("err-musica").classList.toggle("hidden", musica.length >= 2);
+      if (musica.length < 2) hasError = true;
+
+      const validAge = !isNaN(idade) && idade >= 4 && idade <= 110;
+      document.getElementById("err-idade").classList.toggle("hidden", validAge);
+      if (!validAge) hasError = true;
+
+      if (hasError) return;
+
+      submitBtn.disabled = true;
+      submitBtnText.textContent = "Salvando inscrição...";
+
+      try {
+        await tursoPipeline([
+          {
+            type: "execute",
+            stmt: {
+              sql: `CREATE TABLE IF NOT EXISTS inscricoes_dez_afinados (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL,
+                musica TEXT NOT NULL,
+                idade INTEGER NOT NULL,
+                criado_em TEXT DEFAULT (datetime('now', '-4 hours'))
+              )`
+            }
+          },
+          {
+            type: "execute",
+            stmt: {
+              sql: "INSERT INTO inscricoes_dez_afinados (nome, musica, idade) VALUES (?, ?, ?)",
+              args: [
+                { type: "text", value: nome },
+                { type: "text", value: musica },
+                { type: "integer", value: String(idade) }
+              ]
+            }
+          },
+          { type: "close" }
+        ]);
+
+        document.getElementById("rec-nome").textContent = nome;
+        document.getElementById("rec-musica").textContent = musica;
+        document.getElementById("rec-idade").textContent = `${idade} anos`;
+
+        const msg = encodeURIComponent(
+          `🎶 *Inscrição - Culto Jovem Especial dos Dez Afinados* 🎶\n\n` +
+          `👤 *Nome:* ${nome}\n` +
+          `🎤 *Música:* ${musica}\n` +
+          `🎂 *Idade:* ${idade} anos\n\n` +
+          `📅 Data: 28 NOV às 16:30`
+        );
+        document.getElementById("whatsappShareBtn").href = `https://wa.me/?text=${msg}`;
+
+        form.classList.add("hidden");
+        receiptBox.classList.remove("hidden");
+        form.reset();
+      } catch (err) {
+        submitError.textContent = "Não foi possível salvar sua inscrição agora. Tente novamente. (" + err.message + ")";
+        submitError.classList.remove("hidden");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtnText.textContent = "Confirmar Inscrição";
+      }
+    });
+
+    document.getElementById("newRegBtn").addEventListener("click", () => {
+      receiptBox.classList.add("hidden");
+      form.classList.remove("hidden");
+    });
+  </script>
+</body>
+</html>
